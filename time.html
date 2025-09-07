@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时北京时间</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212; /* 深黑色背景 */
+            color: #e0e0e0; /* 浅灰色文字，柔和护眼 */
+            text-align: center;
+            overflow: hidden;
+        }
+        .clock-container {
+            padding: 2rem 3rem;
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid #333;
+        }
+        .label {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #bbb;
+            letter-spacing: 1px;
+        }
+        .clock {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        @media (max-width: 600px) {
+            .clock-container {
+                padding: 1.5rem;
+            }
+            .clock {
+                font-size: 2rem;
+            }
+            .label {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="label">当前北京时间</div>
+        <div id="clock" class="clock">加载中...</div>
+    </div>
+
+    <script>
+        function updateBeijingTime() {
+            const now = new Date();
+            const beijingTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
+
+            const year = beijingTime.getFullYear();
+            const month = String(beijingTime.getMonth() + 1).padStart(2, '0');
+            const day = String(beijingTime.getDate()).padStart(2, '0');
+            const hours = String(beijingTime.getHours()).padStart(2, '0');
+            const minutes = String(beijingTime.getMinutes()).padStart(2, '0');
+            const seconds = String(beijingTime.getSeconds()).padStart(2, '0');
+
+            const formattedTime = `${year}年${month}月${day}日 ${hours}:${minutes}:${seconds}`;
+
+            document.getElementById("clock").textContent = formattedTime;
+        }
+
+        // 立即显示时间
+        updateBeijingTime();
+
+        // 每秒更新
+        setInterval(updateBeijingTime, 1000);
+    </script>
+</body>
+</html>
